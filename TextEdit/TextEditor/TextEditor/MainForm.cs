@@ -10,24 +10,38 @@ using System.Windows.Forms;
 
 namespace TextEditor
 {
-    public partial class MainForm : Form
+    public interface IMainForm
+    {
+        string FilePath { get; }
+        string Content { get; set; }
+        void SetSymbolCount(int count);
+        event EventHandler FileOpenClick;
+        event EventHandler FileSaveClick;
+        event EventHandler ContentChanged;
+    }
+    public partial class MainForm : Form, IMainForm
     {
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public string FilePath
         {
-
+            get { return fldFilePath.Text};
+        }
+        public string Content
+        {
+            get { return fldContent.Text; }
+            set { fldContent.Text = value; }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        public void SetSymbolCount(int count)
         {
-
+            lblSymbolCount.Text = count.ToString();
         }
 
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
