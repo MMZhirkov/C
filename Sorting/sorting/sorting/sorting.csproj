@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B9505D84-4F03-44B7-911F-952868307786}</ProjectGuid>
+    <ProjectGuid>{57B2531E-F2DA-4282-A9A3-000484C5C12E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>foreach</RootNamespace>
-    <AssemblyName>@foreach</AssemblyName>
+    <RootNamespace>sorting</RootNamespace>
+    <AssemblyName>sorting</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
