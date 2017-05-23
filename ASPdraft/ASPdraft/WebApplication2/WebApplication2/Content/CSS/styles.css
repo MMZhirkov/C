@@ -82,11 +82,10 @@ a,a:visited{
     color: black;
     text-decoration: none;
 }
-table a
-{
+table a {
     padding-left: 27px;
     width: auto;
-    background-image: url("/images/Button.jpg");
+    background-image: url("/Content/images/Button.jpg");
     background-repeat: no-repeat;
     background-position: 5px;
     background-size: 17px 17px;
@@ -176,14 +175,14 @@ select{
     width: 100%;
 }
 
-input[type=submit]{
+input[type=submit] {
     border: none;
     color: white;
     padding-left: 27px;
     background-color: #227dab;
     margin: 0;
     width: auto;
-    background-image: url("/images/Button-2.jpg");
+    background-image: url("/Content/images/Button-2.jpg");
     background-repeat: no-repeat;
     background-position: 5px;
     background-size: 17px 17px;
