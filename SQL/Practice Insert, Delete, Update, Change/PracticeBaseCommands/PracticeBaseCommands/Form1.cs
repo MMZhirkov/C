@@ -136,8 +136,6 @@ namespace PracticeBaseCommands
             {
                 SqlCommand command = new SqlCommand("DELETE FROM [Products] WHERE [Id]=@Id", sqlConnection);
                 command.Parameters.AddWithValue("Id", textBox9.Text);
-               
-
                 await command.ExecuteNonQueryAsync();
             }
             else
