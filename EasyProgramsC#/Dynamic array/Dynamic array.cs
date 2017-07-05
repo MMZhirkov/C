@@ -13,7 +13,7 @@ namespace DynamicArray
             Console.Title = "Dynamic array";
 
             int n;//number
-
+            
             Console.Write("ENTER THE NUMBER OF ELEMENTS");
             n = int.Parse(Console.ReadLine());
             //initialize array
