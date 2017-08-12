@@ -10,28 +10,24 @@ namespace ASPForm
     public partial class auth : System.Web.UI.Page
     {
         String user = "User1";
-        String password = "1234";
+        String password = "Password";
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-        protected void Button1_Click(object sender, EventArgs e)
+
+         protected void LoginButton_Click(object sender, AuthenticateEventArgs e)
         {
-            if (TextBox1.Text==user)
+            if (Login1.UserName==user)
             {
-                if (TextBox2.Text==password)
+                if (Login1.Password==password)
                 {
-                    Response.Redirect("/home.aspx");
+                    Response.Redirect("/Home.aspx");
                 }
                 else
                 {
-                    Label3.Text = "Password incorrect";
+
                 }
-                Response.Redirect("/home.aspx");
-            }
-            else
-            {
-                Label3.Text = "Login incorrect";
             }
         }
     }

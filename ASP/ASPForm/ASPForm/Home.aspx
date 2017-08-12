@@ -12,6 +12,9 @@
         <div>
             <asp:Label ID="Label1" runat="server" Text="Home"></asp:Label>
         </div>
+        <div>
+            <asp:ImageButton ID="ImageButton1" runat="server" />
+        </div>
     </form>
 </body>
 </html>
