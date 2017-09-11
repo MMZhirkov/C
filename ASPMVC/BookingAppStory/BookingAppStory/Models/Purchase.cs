@@ -12,6 +12,5 @@ namespace BookingAppStory.Models
         public string Address { get; set; }
         public int BookId { get; set; }
         public DateTime Date { get; set; }
-
     }
 }
