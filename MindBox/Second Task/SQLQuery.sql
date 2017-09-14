@@ -1,1 +1,0 @@
-SELECT CustomedID FROM clients WHERE EXISTS (SELECT * FROM goods WHERE CustomerId = clients.CustomerId AND ProductName = 'milk') AND NOT EXISTS(SELECT * FROM goods WHERE CustomerId = clients.CustomerId AND ProductName = 'sour' AND DATE_ADD(PurchaseDateTime, INTERVAL 30 DAY)>(SELECT MAX(PurchaseDateTime) FROM goods));

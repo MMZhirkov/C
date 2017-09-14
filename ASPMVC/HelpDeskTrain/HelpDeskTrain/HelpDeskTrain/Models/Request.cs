@@ -10,98 +10,72 @@ namespace HelpDeskTrain.Models
     {
         // ID 
         public int Id { get; set; }
-        // NAME REQUEST
+        // Наименование заявки
         [Required]
-        [Display(Name = "Name request")]
-        [MaxLength(50, ErrorMessage = "Exceeded maximum record length")]
+        [Display(Name = "Название заявки")]
+        [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Name { get; set; }
-        // Description
+        // Описание
         [Required]
-        [Display(Name = "Description")]
-        [MaxLength(200, ErrorMessage = "Exceeded maximum record length")]
+        [Display(Name = "Описание")]
+        [MaxLength(200, ErrorMessage = "Превышена максимальная длина записи")]
         public string Description { get; set; }
-        // Comment of the request
-        [Display(Name = "Comment")]
-        [MaxLength(200, ErrorMessage = "Exceeded maximum record length")]
+        // Комментарий к заявке
+        [Display(Name = "Комментарий")]
+        [MaxLength(200, ErrorMessage = "Превышена максимальная длина записи")]
         public string Comment { get; set; }
-        // Status of the request
-        [Display(Name = "Status")]
+        // Статус заявки
+        [Display(Name = "Статус")]
         public int Status { get; set; }
-        // Priority
-        [Display(Name = "Priority")]
+        // Приоритет заявки
+        [Display(Name = "Приоритет")]
         public int Priority { get; set; }
-        // Office
-        [Display(Name = "office")]
-        public int ActivId { get; set; }
-        public string Activ { get; set; }
-        // File with error
-        [Display(Name = "File with error")]
+        // Номер кабинета
+        [Display(Name = "Кабинет")]
+        public int? ActivId { get; set; }
+        public Activ Activ { get; set; }
+        // Файл ошибки
+        [Display(Name = "Файл с ошибкой")]
         public string File { get; set; }
 
-        // Categoty foreign key
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-        public string Category { get; set; }
+        // Внешний ключ Категория
+        [Display(Name = "Категория")]
+        public int? CategoryId { get; set; }
+        public Category Category { get; set; }
 
-        // Foreign key
-        // ID User - regular property
-        public int UserId { get; set; }
-        // Department user - Navigation property
+        // Внешний ключ
+        // ID Пользователя - обычное свойство
+        public int? UserId { get; set; }
+        // Отдел пользователя - Навигационное свойство
         public User User { get; set; }
 
-        // Foreign key
-        // ID User - regular property
-        public int ExecutorId { get; set; }
-        // Отдел пользователя - НNavigation property
+        // Внешний ключ
+        // ID Пользователя - обычное свойство
+        public int? ExecutorId { get; set; }
+        // Отдел пользователя - Навигационное свойство
         public User Executor { get; set; }
 
-        // Foreign key
-        // ID life cycle of the request - regular property
+        // Внешний ключ
+        // ID жизненного цикла заявки - обычное свойство
         public int LifecycleId { get; set; }
-        // REF life cycle of the request - Navigation property 
-        public string Lifecycle { get; set; }
-    }
-    //Model life cycle of the request
-    public class Lifecycle
-    {
-        // ID 
-        public int Id { get; set; }
-        // DATE OPEN
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
-        public DateTime Opened { get; set; }
-        // Date distribution
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
-        public DateTime Distributed { get; set; }
-        // Date processing
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
-        public DateTime Proccesing { get; set; }
-        // Date check
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
-        public DateTime Checking { get; set; }
-        // Date close
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
-        public DateTime Closed { get; set; }
-    }
-    // Listing for status request
-    public enum RequestStatus
-    {
-        Open = 1,
-        Distributed = 2,
-        Proccesing = 3,
-        Checking = 4,
-        Closed = 5
-    }
-    // listing for priority request
-    public enum RequestPriority
-    {
-        Low = 1,
-        Medium = 2,
-        High = 3,
-        Critical = 4
+        // Ссылка на жизненный цикл заявки - Навигационное свойство
+        public Lifecycle Lifecycle { get; set; }
+
+        public enum RequestStatus
+        {
+            Open = 1,
+            Distributed = 2,
+            Proccesing = 3,
+            Checking = 4,
+            Closed = 5
+        }
+        // Перечисление для приоритета заявки
+        public enum RequestPriority
+        {
+            Low = 1,
+            Medium = 2,
+            High = 3,
+            Critical = 4
+        }
     }
 }

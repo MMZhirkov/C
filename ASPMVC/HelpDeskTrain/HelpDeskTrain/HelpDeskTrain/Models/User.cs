@@ -8,35 +8,35 @@ namespace HelpDeskTrain.Models
 {
     public class User
     {
-        //ID
-        public int ID { get; set; }
-        //FIO
+        // ID 
+        public int Id { get; set; }
+        // Фамилия Имя Отчество
         [Required]
-        [Display(Name = "Surname Name")]
-        [MaxLength(50, ErrorMessage = "Exceeded maximum record length")]
+        [Display(Name = "Фамилия Имя Отчество")]
+        [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Name { get; set; }
-        //LOGIN
+        // Логин
         [Required]
-        [Display(Name = "Your login")]
-        [MaxLength(50, ErrorMessage = "Exceeded maximum record length")]
-        public string Login;
-        //PASSWORD
+        [Display(Name = "Логин")]
+        [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
+        public string Login { get; set; }
+        // Пароль
         [Required]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Password { get; set; }
-        //POSITION OF THE EMPLOYEE
-        [Display(Name = "POSITION OF THE EMPLOYEE")]
+        // Должность
+        [Display(Name = "Должность")]
         [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Position { get; set; }
-        //DEPARTMENT
-        [Display(Name = "Department")]
-        public int DepartmentId { get; set; }
-        public string Department { get; set; }
-        //STATUS
+        // Отдел
+        [Display(Name = "Отдел")]
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
+        // Статус
         [Required]
-        [Display(Name = "Status")]
+        [Display(Name = "Статус")]
         public int RoleId { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
     }
 }
