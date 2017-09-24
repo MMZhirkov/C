@@ -20,15 +20,6 @@ public partial class SignIn : System.Web.UI.Page
                 Password.Attributes["value"] = Request.Cookies["PWD"].Value;
                 CheckBox1.Checked = true;
             }
-            else
-            {
-                lblError.Text = "Invalid Username1";
-            }
-
-        }
-        else
-        {
-            lblError.Text = "Invalid Username2";
         }
     }
 
@@ -62,8 +53,21 @@ public partial class SignIn : System.Web.UI.Page
                     Response.Cookies["UNAME"].Expires = DateTime.Now.AddDays(-1);
                     Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(-1);
                 }
-                Session["USERNAME"] = UserName.Text;
-                Response.Redirect("~/UserHome.aspx");
+                string Utype;
+                Utype=dt.Rows[0][5].ToString().Trim();
+
+                if (Utype == "U")
+                {
+                    Session["USERNAME"] = UserName.Text;
+                   
+                        Response.Redirect("~/UserHome.aspx");
+                
+                }
+                if (Utype == "A")
+                {
+                    Session["USERNAME"] = UserName.Text;
+                    Response.Redirect("~/AdminHome.aspx");
+                }
             }
             else
             {
