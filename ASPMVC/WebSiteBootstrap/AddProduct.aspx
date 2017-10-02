@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="AddProduct.aspx.cs" Inherits="AddProduct" %>
 
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <div class="container">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="container">
         <div class="form-horizontal">
             <h2>Add Product</h2>
             <hr />
@@ -37,21 +37,21 @@
             <div class="form-group">
                 <asp:Label ID="Label5" runat="server" CssClass="col-md-2 control-label" Text="Category"></asp:Label>
                 <div class="col-md-3">
-                    <asp:DropDownList ID="ddlCategory" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlCategory" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="ddlCategory" InitialValue="0"></asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="form-group">
                 <asp:Label ID="Label6" runat="server" CssClass="col-md-2 control-label" Text="Sub Category"></asp:Label>
                 <div class="col-md-3">
-                    <asp:DropDownList ID="ddlSubCategory" OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlSubCategory" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="ddlSubCategory" InitialValue="0"></asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="form-group">
                 <asp:Label ID="Label19" runat="server" CssClass="col-md-2 control-label" Text="Gender"></asp:Label>
                 <div class="col-md-3">
-                    <asp:DropDownList ID="ddlGender" OnSelectedIndexChanged="ddlGender_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlGender"  AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator14" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="ddlGender" InitialValue="0"></asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -145,7 +145,7 @@
             <div class="form-group">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-default" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-default"  />
                 </div>
             </div>
         </div>
