@@ -1,22 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="Subcategory.aspx.cs" Inherits="Subcategory" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <div class="container">
         <div class="form-horizontal">
             <h2>Add Sub Category</h2>
-                  <hr />
+            <hr />
             <div class="form-group">
-                <asp:Label ID="Label2" runat="server" CssClass="col-md-2 control-label" Text="Main Category"></asp:Label>
+                <asp:Label ID="Label1" runat="server" CssClass="col-md-2 control-label" Text="Main Category"></asp:Label>
                 <div class="col-md-3">
                     <asp:DropDownList ID="ddlCategory" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="ddlCategory" InitialValue="0"></asp:RequiredFieldValidator>
                 </div>
             </div>
-            <hr />
-            <div class="form-group">
-                <asp:Label ID="Label1" runat="server" CssClass="col-md-2 control-label" Text="Sub Category Name"></asp:Label>
+             <div class="form-group">
+                <asp:Label ID="Label2" runat="server" CssClass="col-md-2 control-label" Text="Sub Category"></asp:Label>
                 <div class="col-md-3">
-                    <asp:TextBox ID="txtSubCatName" CssClass="form-control" runat="server"></asp:TextBox>
+                   <asp:TextBox ID="txtSubCatName" CssClass="form-control" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtSubCatName"></asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -27,7 +26,7 @@
                 </div>
             </div>
         </div>
-       <%-- <h1>Sub Categories</h1>
+          <h1>Sub Categories</h1>
         <hr />
         <div class="panel panel-default">
             <!-- Default panel contents -->
@@ -59,7 +58,7 @@
             </table>
                 </FooterTemplate>
             </asp:Repeater>
-        </div>--%>
+        </div>
     </div>
 </asp:Content>
 
