@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPDemoChat", "TCPDemoChat\TCPDemoChat.csproj", "{4D0B2DA9-5B80-42A7-A450-B61296B7603C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{CE7C2438-2B00-4ABF-8F78-ED8FBE3191B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D0B2DA9-5B80-42A7-A450-B61296B7603C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0B2DA9-5B80-42A7-A450-B61296B7603C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0B2DA9-5B80-42A7-A450-B61296B7603C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0B2DA9-5B80-42A7-A450-B61296B7603C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7C2438-2B00-4ABF-8F78-ED8FBE3191B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7C2438-2B00-4ABF-8F78-ED8FBE3191B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7C2438-2B00-4ABF-8F78-ED8FBE3191B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7C2438-2B00-4ABF-8F78-ED8FBE3191B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9ACAC667-F27B-4215-A1C3-2FC311463D15}
+	EndGlobalSection
+EndGlobal
