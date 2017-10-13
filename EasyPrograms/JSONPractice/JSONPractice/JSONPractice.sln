@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JSONPractice", "JSONPractice\JSONPractice.shproj", "{0578E01E-11DD-49E0-9C5D-5383B1F9B1B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{95A39ED8-3CAA-4AA5-A6EE-7221E5701702}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		JSONPractice\JSONPractice.projitems*{0578e01e-11dd-49e0-9c5d-5383b1f9b1b9}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95A39ED8-3CAA-4AA5-A6EE-7221E5701702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A39ED8-3CAA-4AA5-A6EE-7221E5701702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A39ED8-3CAA-4AA5-A6EE-7221E5701702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A39ED8-3CAA-4AA5-A6EE-7221E5701702}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
