@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @*@foreach (DirectoryInfo directory in ViewBag.Directories)
+        {
+            <p>@directory</p>
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                <p>@file</p>
+            }
+        }*@
+        @*@model IEnumerable<WebFR.Models.CategoryContainer>
+        @foreach (var item in Model)
+        {
+            <ul id="trees">
+                <li>@item.Index</li>
+                <li><input type ="button" onclick="CreateMergeReport()" value="@item.Title"> </li>
+                <li> @item.FullPath</li>
+                <li> @item.Extension</li>
+            </ul>
+        }*@
+  
+
+
+    </div>
+        <div class="col-md-8">
+            @ViewBag.WebReport.GetHtml()
+        </div>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#trees li").click(function (event) {
+            $(this).children("ul").toggleClass("box_hide");
+            event.stopPropagation();
+        });
+    });
+</script>
