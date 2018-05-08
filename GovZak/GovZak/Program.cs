@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using System.Threading;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace GovZak
 {
@@ -22,8 +23,12 @@ namespace GovZak
             string parOkpd2IdsCodes;
             string urlStr = "http://zakupki.gov.ru/epz/order/extendedsearch/results.html?morphology=on&openMode=DEFAULT_SAVED_SETTING&pageNumber=1&sortDirection=false&recordsPerPage=_10&showLotsInfoHidden=false&fz44=on&placingWaysList=EF&pc=on&priceTo=1000000&currencyId=-1&publishDateFrom=31.12.2016&publishDateTo=01.01.2018&region_deliveryRegionIds_5277352=region_deliveryRegionIds_5277352&deliveryRegionIds=5277352&regionDeleted=false&okpdIds=3291&okpdIdsCodes=01.11.1&sortBy=UPDATE_DATE";
 
-           
-
+            FileStream file1 = new FileStream(@"..\Content\OkpdDict.txt", FileMode.Open); //создаем файловый поток
+            StreamReader reader = new StreamReader(file1); // создаем «потоковый читатель» и связываем его с файловым потоком 
+            Console.WriteLine(reader.ReadToEnd()); //считываем все данные с потока и выводим на экран
+            reader.Close(); //закрываем поток
+            Console.ReadLine();
+            
 
             string jsonData = System.IO.File.ReadAllText(@"Content\DictForGovZakup.json");
             GovZakup jsonP = JsonConvert.DeserializeObject<GovZakup>(jsonData);
