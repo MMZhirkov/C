@@ -18,10 +18,10 @@ namespace InstaBot
     public partial class Form1 : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        List<string> Tags = new List<string>();
+
+        List<string> Tags = new List<string>(){ "#meat",  "#football", "#шашлыки", "#кроссфит", "#triathlon", "#говядина", "#run", "#футбол", "#стейк", "#триатлон", "#вино" };//"#wine","#running","#steak", "#crossfit", "#мясо", "#мясомясо",
         int likes = 0;
-
-
+        string lastUrl;
         IWebDriver Browser;
         public Form1()
         {
@@ -32,6 +32,7 @@ namespace InstaBot
             //1 work for tag
             //2 like menee 200
             //3 video prosmotr
+            //не убирать like
         }
         public void Login() {
             string currentUrl;
@@ -54,25 +55,27 @@ namespace InstaBot
                 Delay(3000, 9000);
             }
             //Enter Tag in finder
-            IWebElement SearchFinder = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/input"));
-            SearchFinder.SendKeys("#бег");//мясомясо шашлыки  кроссфит  триатлон, , triathlon ,  meat,wine , football  , футбол ,running ,steak , , , , , , ,  
-                                       //   мясомясо      стейк  мясо      run   шашлыки   running  говядина вино бегун crossfit бег
-            Delay(2000, 3000);
-            IWebElement SearchFirstTag = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]"));
-            //*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]
+            foreach (string tag in Tags)
+            {
+                IWebElement SearchFinder = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/input"));
 
-            SearchFirstTag.Click();
-            Delay(3000, 5000);
-
-            //Search,choose first images rand of 10-12
-            IWebElement SearchImages = Browser.FindElement(By.XPath("//section/main/article/div[2]/div/div[1]/div[1]/a"));
-            Random imgChange = new Random();
-            int iC = imgChange.Next(9, 12);
-            SearchImages.Click();
-            logger.Info("first img opened");
-
-            Delay(5000, 9000);
-            Liker();
+                SearchFinder.SendKeys(tag); 
+                Delay(2000, 3000);
+                IWebElement SearchFirstTag = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]"));
+                SearchFirstTag.Click();
+                Delay(3000, 5000);
+                //Search,choose first images rand of 10-12
+                IWebElement SearchImages = Browser.FindElement(By.XPath("//section/main/article/div[2]/div/div[1]/div[1]/a"));
+                Random imgChange = new Random();
+                int iC = imgChange.Next(9, 12);
+                SearchImages.Click();
+                logger.Info("first img opened");
+                Delay(5000, 9000);
+                Liker();
+                Browser.Navigate().GoToUrl("https://www.instagram.com/");
+                likes = 0;
+                Delay(600000,700000);
+            }
         }
         public void Liker()
         {
@@ -94,8 +97,20 @@ namespace InstaBot
                 if (countLike==null)
                     {
                     logger.Info("not like = ", likes);
-                    IWebElement SearchNextImg1 = Browser.FindElement(By.LinkText("Далее"));
-                    SearchNextImg1.Click();
+                    IWebElement SearchNextImg1 ;
+                    try
+                    {
+                        SearchNextImg1 = Browser.FindElement(By.LinkText("Далее"));
+                        SearchNextImg1.Click();
+                    }
+                    catch (Exception)
+                    {
+
+                        Browser.Navigate().GoToUrl(lastUrl);
+                        Delay(2000, 5000);
+                        Liker();
+                    }
+                   
                     Delay(2000, 5000);
                     Liker();
                 }
@@ -117,6 +132,7 @@ namespace InstaBot
                                     //Seach button "like",click
                                     IWebElement SearchLike = Browser.FindElement(By.XPath("//article//div/section/a"));
                                     SearchLike.Click();
+                                    lastUrl = Browser.Url;
                                     likes++;
                                     logger.Info("summLikes = {0}", likes);
                                     Delay(2000, 5000);
