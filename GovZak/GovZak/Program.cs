@@ -10,13 +10,16 @@ using OpenQA.Selenium;
 using System.Threading;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace GovZak
 {
     class Program
     {
+       
         static void Main(string[] args)
         {
+            IWebDriver Browser;
             string currentUrl;
             string parRegion;
             string parOkpd2Ids;
@@ -52,7 +55,8 @@ namespace GovZak
             //fileStream.Close();
             #endregion
             List<Filter> hrefVar = new List<Filter>();
-            List <Okpo> okpo2List =new List<Okpo>();   
+            List <Okpo> okpo2List =new List<Okpo>();
+            Timer Delay= new Timer();
             foreach (var Okpo2 in listOkpo)
             {
                 var okpo2 = Okpo2.Split('-');
@@ -61,21 +65,33 @@ namespace GovZak
                     hrefVar.Add(new Filter(okpo2[1], okpo2[0], regionId));
                 }
             }
+            foreach (Filter hVar in hrefVar)
+            {
+                string url1 = "http://zakupki.gov.ru/epz/order/extendedsearch/results.html?morphology=on&openMode=DEFAULT_SAVED_SETTING&pageNumber=1&sortDirection=false&recordsPerPage=_10&showLotsInfoHidden=false&fz44=on&placingWaysList=EF&pc=on&priceTo=1000000&currencyId=-1&regionDeleted=false&region_deliveryRegionIds_";
+                string url2 = "=region_deliveryRegionIds_";
+                string url3 = "&deliveryRegionIds=";
+                string url4 = "&regionDeleted=false&applSubmissionCloseDateFrom=31.12.2016&applSubmissionCloseDateTo=31.12.2017&okpd2Ids=";
+                string url5 = "&okpd2IdsCodes=";
+                string url6 = "&regionDeleted=false&sortBy=UPDATE_DATE";
+                string url = url1 + hVar.RegionID.Replace("\"","") + url2+ hVar.RegionID.Replace("\"", "") + url3+ hVar.RegionID.Replace("\"", "") + url4+ hVar.Okpo2ID.Replace("\"", "") + url5+ hVar.Okpo2.Replace("\"", "") + url6;
+               
+                Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
+                Browser.Navigate().GoToUrl(url);
+                Delay.Delay(2000, 4000);
 
-
-            
-           
-            IWebDriver Browser;
-
-            //foreach (var item in collection)
-            //{
-
-            //}
-
-            string urlStr = "http://zakupki.gov.ru/epz/order/extendedsearch/results.html?morphology=on&openMode=DEFAULT_SAVED_SETTING&pageNumber=1&sortDirection=false&recordsPerPage=_10&showLotsInfoHidden=false&fz44=on&placingWaysList=EF&pc=on&priceTo=1000000&currencyId=-1&regionDeleted=false&region_deliveryRegionIds_5277349=region_deliveryRegionIds_5277349&deliveryRegionIds=5277349&regionDeleted=false&applSubmissionCloseDateFrom=31.12.2016&applSubmissionCloseDateTo=31.12.2017&okpd2IdsWithNested=on&okpd2Ids=8873971&okpd2IdsCodes=01.1&regionDeleted=false&sortBy=UPDATE_DATE";
-
-            Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
-            Browser.Navigate().GoToUrl(urlStr);
+                ReadOnlyCollection<IWebElement> SearchFinder = Browser.FindElements(By.XPath("//body/div/div/div[3]/div/div/table/tbody/tr/td[2]/dl/dt/a.Attributes[\"href\"].Value"));
+               
+            }
+            //string urlStr = "http://zakupki.gov.ru/epz/order/extendedsearch/results.html?morphology=on&openMode=DEFAULT_SAVED_SETTING&pageNumber=1&sortDirection=false&recordsPerPage=_10&showLotsInfoHidden=false&fz44=on&placingWaysList=EF&pc=on&priceTo=1000000&currencyId=-1&regionDeleted=false&region_deliveryRegionIds_5277349=region_deliveryRegionIds_5277349&deliveryRegionIds=5277349&regionDeleted=false&applSubmissionCloseDateFrom=31.12.2016&applSubmissionCloseDateTo=31.12.2017&okpd2IdsWithNested=on&okpd2Ids=8873971&okpd2IdsCodes=01.1&regionDeleted=false&sortBy=UPDATE_DATE";
+        }
+    }
+    public class Auction { }
+    public class Timer {
+        public void Delay(int Time1, int Time2)
+        {
+            Random timeRandom = new Random();
+            int tR = timeRandom.Next(Time1, Time2);
+            System.Threading.Thread.Sleep(tR);
         }
     }
     public class Okpo

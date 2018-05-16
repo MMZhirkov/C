@@ -19,7 +19,7 @@ namespace InstaBot
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        List<string> Tags = new List<string>(){ "#meat",  "#football", "#шашлыки", "#кроссфит", "#triathlon", "#говядина", "#run", "#футбол", "#стейк", "#триатлон", "#вино" };//"#wine","#running","#steak", "#crossfit", "#мясо", "#мясомясо",
+        List<string> Tags = new List<string>(){ "#crossfit", "#мясо", "#meat",  "#football", "#шашлыки", "#кроссфит", "#triathlon", "#говядина", "#run","#футбол", "#стейк","#мясомясо", "#триатлон", "#вино" };// "#wine","#running","#steak",
         int likes = 0;
         string lastUrl;
         IWebDriver Browser;
@@ -102,17 +102,19 @@ namespace InstaBot
                     {
                         SearchNextImg1 = Browser.FindElement(By.LinkText("Далее"));
                         SearchNextImg1.Click();
-                    }
-                    catch (Exception)
-                    {
-
-                        Browser.Navigate().GoToUrl(lastUrl);
                         Delay(2000, 5000);
                         Liker();
                     }
+                    catch (Exception)
+                    {
+                        if (lastUrl!= Browser.Url)
+                        {
+                            Browser.Navigate().GoToUrl(lastUrl);
+                            Delay(2000, 5000);
+                        }
+                    }
                    
-                    Delay(2000, 5000);
-                    Liker();
+                   
                 }
                 else
                     {
