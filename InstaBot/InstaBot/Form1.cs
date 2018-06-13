@@ -11,7 +11,8 @@ using OpenQA.Selenium;
 using NLog; 
 using NLog.Config;
 using System.Threading;
-
+using System.IO;
+using System.Xml;
 
 namespace InstaBot
 {
@@ -19,32 +20,82 @@ namespace InstaBot
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        List<string> Tags = new List<string>(){ "#crossfit", "#мясо", "#meat",  "#football", "#шашлыки", "#кроссфит", "#triathlon", "#говядина", "#run","#футбол", "#стейк","#мясомясо", "#триатлон", "#вино" };// "#wine","#running","#steak",
+        List<string> Tags = new List<string>(){};
         int likes = 0;
         string lastUrl;
         IWebDriver Browser;
         public Form1()
         {
             InitializeComponent();
+            FindTags();
             Login();
-            Tags.Add("2");
             //revision
             //1 work for tag
             //2 like menee 200
             //3 video prosmotr
             //не убирать like
         }
+        public void FindTags()
+        {
+            string pathConfig =Path.Combine(Environment.CurrentDirectory, "Tags.config");
+
+            try
+            {
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load(pathConfig);
+                XmlElement Root = xDoc.DocumentElement;
+                foreach (XmlNode xnode in Root)
+                {
+                    string[] tags = xnode.InnerText.Split(',');
+                    foreach (string tag in tags)
+                    {
+                        Tags.Add(tag);
+                    }
+                }
+
+
+            }
+            catch (Exception Error)
+            {
+
+                throw;
+            }
+            
+        }
         public void Login() {
             string currentUrl;
-            //pass authorization
+            string username = null;
+            string password = null;
             logger.Info("login");
+            string pathConfig = Path.Combine(Environment.CurrentDirectory, "Login.config");
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(pathConfig);
+            XmlElement Root = xDoc.DocumentElement;
+            foreach (XmlNode xnode in Root)
+            {
+                if (xnode.Name == "login")
+                {
+                    username = xnode.InnerText.Replace(" ","");
+                }
+                if (xnode.Name == "password")
+                {
+                    password = xnode.InnerText.Replace(" ", "");
+                }
+            }
+
+
+
+
             Browser = new OpenQA.Selenium.Chrome.ChromeDriver();
             Browser.Navigate().GoToUrl("https://www.instagram.com/accounts/login/");
             Delay(2000, 4000);
             IWebElement SearchLogin = Browser.FindElement(By.Name("username"));
-            SearchLogin.SendKeys("mmzhirkov@yandex.ru");
+            SearchLogin.SendKeys(username);
             IWebElement SearchPassword = Browser.FindElement(By.Name("password"));
-            SearchPassword.SendKeys("7394Piter" + OpenQA.Selenium.Keys.Enter);
+        
+            SearchPassword.SendKeys(password);
+            Delay(1000, 2000);
+            SearchPassword.SendKeys(OpenQA.Selenium.Keys.Enter);
             Delay(5000, 9000);
 
             currentUrl = Browser.Url;
@@ -57,25 +108,54 @@ namespace InstaBot
             //Enter Tag in finder
             foreach (string tag in Tags)
             {
+                try
+                {
                 IWebElement SearchFinder = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/input"));
+                    if (SearchFinder.Text=="")
+                    {
+                        SearchFinder.SendKeys(tag);
+                    }
+                    else
+                    {
+                        SearchFinder.Clear();
+                    }
+                    Delay(2000, 3000);
+                    IWebElement SearchFirstTag = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]"));
+                    SearchFirstTag.Click();
+                    Delay(3000, 5000);
+                    //Search,choose first images rand of 10-12
+                    IWebElement SearchImages = Browser.FindElement(By.XPath("//section/main/article/div[2]/div/div[1]/div[1]/a"));
+                    Random imgChange = new Random();
+                    int iC = imgChange.Next(9, 12);
+                    SearchImages.Click();
+                    logger.Info("first img opened");
+                    Delay(5000, 9000);
+                    Liker();
+                    Browser.Navigate().GoToUrl("https://www.instagram.com/");
+                    likes = 0;
+                    Delay(600000, 700000);
 
-                SearchFinder.SendKeys(tag); 
-                Delay(2000, 3000);
-                IWebElement SearchFirstTag = Browser.FindElement(By.XPath("//section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]"));
-                SearchFirstTag.Click();
-                Delay(3000, 5000);
-                //Search,choose first images rand of 10-12
-                IWebElement SearchImages = Browser.FindElement(By.XPath("//section/main/article/div[2]/div/div[1]/div[1]/a"));
-                Random imgChange = new Random();
-                int iC = imgChange.Next(9, 12);
-                SearchImages.Click();
-                logger.Info("first img opened");
-                Delay(5000, 9000);
-                Liker();
-                Browser.Navigate().GoToUrl("https://www.instagram.com/");
-                likes = 0;
-                Delay(600000,700000);
+
+                    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.txt");
+                    string logMessage= tag + "Success";
+                    FileStream sslns = new FileStream(path, FileMode.OpenOrCreate);
+                    StreamWriter ss = new StreamWriter(sslns);
+                    ss.Write(logMessage);
+                    ss.Close();
+                    sslns.Close();
+                }
+                catch (Exception exc)
+                {
+                    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.txt");
+                    FileStream sslns = new FileStream(path, FileMode.OpenOrCreate);
+                    StreamWriter ss = new StreamWriter(sslns);
+                    ss.Write(exc.Message + DateTime.Now);
+                    ss.Close();
+                    sslns.Close();
+                }
             }
+            
+           
         }
         public void Liker()
         {
@@ -113,8 +193,6 @@ namespace InstaBot
                             Delay(2000, 5000);
                         }
                     }
-                   
-                   
                 }
                 else
                     {
@@ -170,5 +248,10 @@ namespace InstaBot
             int tR = timeRandom.Next(Time1, Time2);
             System.Threading.Thread.Sleep(tR);
         }                                                       //Delay vs filter insta bots
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
