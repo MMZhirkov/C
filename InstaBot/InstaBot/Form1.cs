@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenQA.Selenium;
-using NLog; 
-using NLog.Config;
 using System.Threading;
 using System.IO;
 using System.Xml;
@@ -18,8 +16,6 @@ namespace InstaBot
 {
     public partial class Form1 : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         List<string> Tags = new List<string>(){};
         int likes = 0;
         string lastUrl;
@@ -49,11 +45,9 @@ namespace InstaBot
                     string[] tags = xnode.InnerText.Split(',');
                     foreach (string tag in tags)
                     {
-                        Tags.Add(tag);
+                        Tags.Add(tag.Replace("\"","").Replace(" ",""));
                     }
                 }
-
-
             }
             catch (Exception Error)
             {
@@ -66,7 +60,7 @@ namespace InstaBot
             string currentUrl;
             string username = null;
             string password = null;
-            logger.Info("login");
+
             string pathConfig = Path.Combine(Environment.CurrentDirectory, "Login.config");
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(pathConfig);
@@ -75,11 +69,11 @@ namespace InstaBot
             {
                 if (xnode.Name == "login")
                 {
-                    username = xnode.InnerText.Replace(" ","");
+                    username = xnode.InnerText.Replace(" ","").Replace("\"", "");
                 }
                 if (xnode.Name == "password")
                 {
-                    password = xnode.InnerText.Replace(" ", "");
+                    password = xnode.InnerText.Replace(" ", "").Replace("\"", "");
                 }
             }
 
@@ -128,7 +122,7 @@ namespace InstaBot
                     Random imgChange = new Random();
                     int iC = imgChange.Next(9, 12);
                     SearchImages.Click();
-                    logger.Info("first img opened");
+                    
                     Delay(5000, 9000);
                     Liker();
                     Browser.Navigate().GoToUrl("https://www.instagram.com/");
@@ -159,7 +153,6 @@ namespace InstaBot
         }
         public void Liker()
         {
-            logger.Info("start Liker");
 
             if (likes < 100)
             {
@@ -171,12 +164,10 @@ namespace InstaBot
                 catch (Exception exc)
                 {
 
-                    logger.Error("Error -", exc);
                 }
 
                 if (countLike==null)
                     {
-                    logger.Info("not like = ", likes);
                     IWebElement SearchNextImg1 ;
                     try
                     {
@@ -214,7 +205,6 @@ namespace InstaBot
                                     SearchLike.Click();
                                     lastUrl = Browser.Url;
                                     likes++;
-                                    logger.Info("summLikes = {0}", likes);
                                     Delay(2000, 5000);
                                     Liker();
                                 }
@@ -222,7 +212,6 @@ namespace InstaBot
                                 {
 
                             //если нету далее пропиши
-                                    logger.Info("not like = ", likes);
                                     IWebElement SearchNextImg1 = Browser.FindElement(By.LinkText("Далее"));
                                     SearchNextImg1.Click();
                                     Delay(2000, 5000);
@@ -232,13 +221,11 @@ namespace InstaBot
                         else
                             {
                                 var urlError = Browser.Url;
-                                logger.Error("start Liker", urlError);
                             }
                 }
             }
             else
             {
-                logger.Info("Exit app");
                 Application.Exit();
             }
         }
